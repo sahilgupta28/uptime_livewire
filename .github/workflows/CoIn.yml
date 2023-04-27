@@ -1,0 +1,32 @@
+name: CoIn
+
+on:
+  push:
+    branches:
+      - main
+      - '*.x'
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  CoIn:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Compose
+        run: docker-compose up -d
+
+      - name: Composer install [manual]
+        run: docker-compose exec -T x-web composer install
+
+      - name: Setup dev environment
+        run: docker-compose exec -T x-web composer run dev
+
+      - name: Run test cases
+        run: docker-compose exec -T x-web composer run pester

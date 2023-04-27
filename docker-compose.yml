@@ -1,0 +1,98 @@
+version : "3"
+services:
+  x-web:
+    build:
+      context: .
+      dockerfile: dockerfiles/Web.Dockerfile
+    container_name: x-web
+    depends_on:
+      - x-web-pg
+    volumes:
+      - .:/var/www/html
+    restart: always
+    ports:
+      - "2000:80"
+    environment:
+      APP_NAME: "Web boilerplate"
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.1
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  x-web-pg:
+    image: postgres:15
+    container_name: x-web-pg
+    volumes:
+      - x-web-pg-disk:/var/lib/postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: testing
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.2
+
+  x-web-q:
+    build:
+      context: .
+      dockerfile: dockerfiles/QueueListener.Dockerfile
+    container_name: x-web-q
+    depends_on:
+      - x-web
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.3
+
+  x-web-mailpit:
+    image: 'axllent/mailpit:latest'
+    container_name: x-web-mailpit
+    restart: always
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.4
+
+  x-web-0x:
+    build:
+      context: .
+      dockerfile: dockerfiles/SansXdebug.Dockerfile
+    container_name: x-web-0x
+    depends_on:
+      - x-web
+    volumes:
+      - .:/var/www/html
+    restart: always
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.5
+
+  x-web-fe:
+    build:
+      context: .
+      dockerfile: dockerfiles/Fe.Dockerfile
+    container_name: x-web-fe
+    ports:
+      - "2006:5173"
+    depends_on:
+      - x-web
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped
+    networks:
+      x-web-network:
+        ipv4_address: 200.20.1.6
+
+# On-disk storage of DB data, when containers are stopped
+volumes:
+  x-web-pg-disk: {}
+
+# Local network for services running using this docker-compose config
+networks:
+  x-web-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 200.20.0.0/16

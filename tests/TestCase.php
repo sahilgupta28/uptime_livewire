@@ -1,0 +1,16 @@
+<?php
+
+namespace Tests;
+
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
+{
+    use CreatesApplication;
+
+    /**
+     * @var string[]
+     */
+    public array $admin;
+    public array $web_user;
+}
