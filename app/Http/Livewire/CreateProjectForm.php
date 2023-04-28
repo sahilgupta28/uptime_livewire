@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
 
 class CreateProjectForm extends Component
@@ -14,14 +15,14 @@ class CreateProjectForm extends Component
         return view('livewire.create-project-form');
     }
 
-    public function save()
+    public function save(): ?RedirectResponse
     {
         $data = $this->valiadtion();
         Project::create(
             [
                 'name' => $data['project_name'],
                 'url' => $data['url'],
-                'user_id' => auth()->user()->id
+                'user_id' => optional(auth()->user())->id
             ]
         );
         return $this->redirect(route('project.index'));
