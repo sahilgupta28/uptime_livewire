@@ -21,9 +21,9 @@ class CreateProjectForm extends Component
         return view('livewire.create-project-form');
     }
 
-    public function save(): ?RedirectResponse
+    public function save(): ?Redirect
     {
-        $data = $this->valiadtion();
+        $data = $this->validate();
         Project::create(
             [
                 'name' => $data['project_name'],
