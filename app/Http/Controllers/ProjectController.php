@@ -11,5 +11,9 @@ class ProjectController extends Controller
     {
         return view('project.index');
     }
+    public function create(): View
+    {
+        return view('project.create');
+    }
 
 }

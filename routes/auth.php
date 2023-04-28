@@ -44,6 +44,7 @@ Route::middleware(['auth:web'])->group(function () {
     })->middleware(['auth:web'])->name('dashboard');
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('project.create');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -16,10 +16,7 @@ class CreateProjectForm extends Component
 
     public function save()
     {
-        $data = $this->validate([
-            'project_name' => 'required|string|min:3',
-            'url' => 'required|url'
-        ]);
+        $data = $this->valiadtion();
         Project::create(
             [
                 'name' => $data['project_name'],
@@ -27,7 +24,14 @@ class CreateProjectForm extends Component
                 'user_id' => auth()->user()->id
             ]
         );
-        $this->project_name = '';
-        $this->url = '';
+        return $this->redirect(route('project.index'));
+    }
+
+    private function valiadtion(): array
+    {
+        return $this->validate([
+            'project_name' => 'required|string|min:3',
+            'url' => 'required|url'
+        ]);
     }
 }
