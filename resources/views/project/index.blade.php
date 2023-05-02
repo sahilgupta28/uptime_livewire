@@ -15,15 +15,8 @@
                         </h2>
                     </header>
                 </div>
-                <div class="max-w-xl">
-                    <header>
-                        <a class="text-lg font-medium text-gray-900 dark:text-gray-100" href="{{route('project.create')
-                        }}">
-                            {{ __('Add Project') }}
-                        </a>
-                    </header>
-                </div>
             </div>
+            @livewire('projects-list')
         </div>
     </div>
 </x-app-layout>
