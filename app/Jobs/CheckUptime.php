@@ -28,10 +28,13 @@ class CheckUptime implements ShouldQueue
     {
         $projects = Project::get();
         foreach ($projects as $project) {
+            $uptime = $this->uptime->start($project->url);
+
             UptimeLog::create(
                 [
-                    'status' => $this->uptime->start($project->url),
-                    'project_id' => $project->id
+                    'status' => is_bool($uptime),
+                    'project_id' => $project->id,
+                    'description' => is_string($uptime) ? $uptime : null
                 ]
             );
         }
