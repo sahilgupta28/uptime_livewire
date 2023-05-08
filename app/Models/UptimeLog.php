@@ -11,6 +11,7 @@ class UptimeLog extends Model
 
     protected $fillable = [
         'project_id',
-        'status'
+        'status',
+        'description'
     ];
 }

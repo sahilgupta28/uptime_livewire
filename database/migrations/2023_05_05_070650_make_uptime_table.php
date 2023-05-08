@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->integer('project_id');
             $table->boolean('status');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
