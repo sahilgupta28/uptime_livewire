@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class CreateProjectForm extends Component
@@ -16,12 +18,12 @@ class CreateProjectForm extends Component
         'url' => 'required|url'
     ];
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.create-project-form');
     }
 
-    public function save(): ?Redirect
+    public function save(): Redirect
     {
         $data = $this->validate();
         Project::create(
@@ -34,7 +36,10 @@ class CreateProjectForm extends Component
         return $this->redirect(route('project.index'));
     }
 
-    public function updated($propertyName)
+    /**
+     * @throws ValidationException
+     */
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
