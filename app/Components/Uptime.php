@@ -2,27 +2,22 @@
 
 namespace App\Components;
 
+use Exception;
+use Http;
+
 class Uptime
 {
-    public function start($url)
+    public function start($url): bool | String
     {
-        $command_output = $this->executeCmd($url);
-        return $this->hasSuccessStatus($command_output);
-    }
-
-    private function hasSuccessStatus($command_output)
-    {
-        foreach ($command_output as $output) {
-            if (strpos($output, 'HTTP') !== false && strpos($output, '200')) {
-                return true;
+        $output = false;
+        try {
+            $uptime = Http::get($url)->status();
+            if (str_contains($uptime, '200')) {
+                $output = true;
             }
+        } catch (Exception $e) {
+            $output = $e->getMessage();
         }
-        return false;
-    }
-
-    private function executeCmd($url)
-    {
-        exec("curl -sSL -D - $url -o /dev/null", $output);
         return $output;
     }
 }
