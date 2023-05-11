@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     server: {
-        host: "200.20.1.6",
+        host: "200.21.1.6",
         watch: {
             ignored: [
                 "!**/vendor/**"
