@@ -10,7 +10,6 @@
     </x-slot>
 
     <div class="py-12">
-            @livewire('projects-list')
-        </div>
+        @livewire('projects-list')
     </div>
 </x-app-layout>
