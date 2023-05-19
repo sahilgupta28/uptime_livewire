@@ -1,5 +1,5 @@
 {
-    "name": "jdecode/x-web",
+    "name": "sahilgupta28/ut-web",
     "type": "project",
     "description": "Web-dev boilerplate for 10x developers",
     "keywords": ["boilerplate", "laravel", "x-web"],
@@ -102,13 +102,13 @@
                 ]
             },
             "pre-commit": [
-                "docker-compose exec -T x-web composer run pre-commit"
+                "docker-compose exec -T ut-web composer run pre-commit"
             ],
             "pre-push": [
-                "docker-compose exec -T x-web composer run pre-push"
+                "docker-compose exec -T ut-web composer run pre-push"
             ],
             "post-merge": [
-                "docker-compose exec -T x-web composer run post-merge"
+                "docker-compose exec -T ut-web composer run post-merge"
             ]
         }
 
