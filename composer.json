@@ -2,7 +2,7 @@
     "name": "sahilgupta28/uptime_livewire",
     "type": "project",
     "description": "Web-dev boilerplate for 10x developers",
-    "keywords": ["boilerplate", "laravel", "x-web"],
+    "keywords": ["boilerplate", "laravel", "ut-web"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
