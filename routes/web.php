@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProjectController;
+use App\Jobs\CheckUptime;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/test', function () {
+    CheckUptime::dispatch();
+});
 
 
 require __DIR__.'/auth.php';
