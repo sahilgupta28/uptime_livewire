@@ -31,6 +31,6 @@ class Project extends Model
 
     public function routeNotificationForSlack(): string
     {
-        return 'https://hooks.slack.com/services/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';
+        return env('SLACK_HOOK');
     }
 }
