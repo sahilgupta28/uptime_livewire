@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 
 class Project extends Model
 {
     use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'name',
@@ -25,5 +27,10 @@ class Project extends Model
     public function uptimeLogsLatestFirst(): HasOne
     {
         return $this->HasOne(UptimeLog::class, 'project_id', 'id')->latest();
+    }
+
+    public function routeNotificationForSlack(): string
+    {
+        return 'https://hooks.slack.com/services/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';
     }
 }
