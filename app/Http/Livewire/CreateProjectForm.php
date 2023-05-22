@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\CheckUptime;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
@@ -33,6 +34,7 @@ class CreateProjectForm extends Component
                 'user_id' => optional(auth()->user())->id
             ]
         );
+        CheckUptime::dispatch();
         return $this->redirect(route('project.index'));
     }
 
