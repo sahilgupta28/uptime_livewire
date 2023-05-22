@@ -45,6 +45,7 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('project.create');
+    Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('project.edit');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

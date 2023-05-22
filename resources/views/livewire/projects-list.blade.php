@@ -40,7 +40,8 @@
                                             </div>
                                         </td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="#" class="text-indigo-400 hover:text-indigo-300 bg-transparent hover:bg-indigo-500 font-semibold py-2 px-4  border border-indigo-500 hover:border-transparent rounded">Edit<span class="sr-only">, {{$project->name}}</span></a>
+                                            <a href="#" wire:click="edit({{$project->id}})" class="text-indigo-400
+                                               hover:text-indigo-300 bg-transparent hover:bg-indigo-500 font-semibold py-2 px-4  border border-indigo-500 hover:border-transparent rounded">Edit<span class="sr-only">, {{$project->name}}</span></a>
                                         </td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="#" class="text-red-600 hover:text-indigo-300 bg-transparent
