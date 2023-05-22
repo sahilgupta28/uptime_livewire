@@ -32,8 +32,7 @@
                                             <div class="flex items-center justify-end gap-x-2 sm:justify-start">
                                                 <div class="flex-none rounded-full p-1 {{optional
                                                 ($project->uptimeLogsLatestFirst)->status ? 'text-green-400':
-                                                'text-rose-400' }}
-                                                bg-green-400/10">
+                                                'text-rose-400'}}">
                                                     <div class="h-1.5 w-1.5 rounded-full bg-current"></div>
                                                 </div>
                                                 <div class="hidden text-white sm:block uppercase">{{optional
@@ -46,7 +45,9 @@
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="#" class="text-red-600 hover:text-indigo-300 bg-transparent
                                             hover:bg-red-500 font-semibold py-2 px-4
-                                            hover:border-red-700 rounded">Delete<span class="sr-only">,
+                                            hover:border-red-700 rounded" wire:click="delete({{$project->id}})
+                                            ">Delete<span
+                                                    class="sr-only">,
                                                     {{$project->name}}</span></a>
                                         </td>
                                     </tr>

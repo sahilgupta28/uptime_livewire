@@ -13,12 +13,25 @@ class ProjectsList extends Component
 
     public function mount(): void
     {
-        $this->projects = Project::latest()
-            ->with('uptimeLogsLatestFirst')
-            ->get();
+        $this->projects = $this->getAllRecords();
     }
+
     public function render(): View
     {
         return view('livewire.projects-list');
+    }
+
+    public function delete(int $project_id): void
+    {
+        Project::whereId($project_id)
+            ->delete();
+        $this->projects = $this->getAllRecords();
+    }
+
+    private function getAllRecords(): Collection
+    {
+        return Project::latest()
+            ->with('uptimeLogsLatestFirst')
+            ->get();
     }
 }
