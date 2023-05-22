@@ -17,7 +17,7 @@ class DailyStatusNotification extends Notification
 
     public function toSlack(object $notifiable): SlackMessage
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
             ->from('Uptime Checker')
             ->attachment(function ($attachment) use ($notifiable) {
                 $attachment->title(
@@ -26,7 +26,7 @@ class DailyStatusNotification extends Notification
                     'Title' => $notifiable->name,
                     'Domain' => $notifiable->url,
                     'Status' => $notifiable->website_downtime,
-                    'Uptime' => optional($notifiable->uptimeLogsLatestFirst)->status ? 'Up': 'Down'
+                    'Uptime' => optional($notifiable->uptimeLogsLatestFirst)->status ? 'Up' : 'Down'
                 ]);
             });
     }
