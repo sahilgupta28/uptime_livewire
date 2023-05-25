@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\ProjectInterface;
 use App\Jobs\CheckUptime;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProjectRepository implements ProjectInterface
 {
@@ -32,5 +33,20 @@ class ProjectRepository implements ProjectInterface
             ->update($inputs);
         CheckUptime::dispatch();
         return $project;
+    }
+
+    public function getAllWithCurrentStatus(): Collection
+    {
+        return $this->project
+            ->with('uptimeLogsLatestFirst')
+            ->orderBy('name')
+            ->get();
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->project
+            ->whereId($id)
+            ->delete();
     }
 }

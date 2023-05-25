@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Project;
+use App\Interfaces\ProjectInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -12,10 +12,12 @@ use Livewire\Redirector;
 class ProjectsList extends Component
 {
     public Collection $projects;
+    protected ProjectInterface $project_repostory;
 
-    public function mount(): void
+    public function boot(ProjectInterface $project_repostory): void
     {
-        $this->projects = $this->getAllRecords();
+        $this->project_repostory = $project_repostory;
+        $this->projects = $this->project_repostory->getAllWithCurrentStatus();
     }
 
     public function render(): View
@@ -25,21 +27,12 @@ class ProjectsList extends Component
 
     public function delete(int $project_id): void
     {
-        Project::whereId($project_id)
-            ->delete();
-        $this->projects = $this->getAllRecords();
+        $this->project_repostory->delete($project_id);
+        $this->projects = $this->project_repostory->getAllWithCurrentStatus();
     }
 
     public function edit(int $project_id): RedirectResponse|Redirector
     {
         return redirect(route('project.edit', ['id' => $project_id]));
-    }
-
-    private function getAllRecords(): Collection
-    {
-        return Project::latest()
-            ->with('uptimeLogsLatestFirst')
-            ->orderBy('name')
-            ->get();
     }
 }
