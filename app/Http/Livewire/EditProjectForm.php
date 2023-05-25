@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Interfaces\ProjectInterface;
 use App\Jobs\CheckUptime;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
@@ -13,15 +14,21 @@ class EditProjectForm extends Component
     public String $project_name;
     public String $url;
     public int $project_id;
+    protected ProjectInterface $project_repostory;
 
     protected array $rules = [
         'project_name' => 'required|string|min:3',
         'url' => 'required|url'
     ];
 
+    public function boot(ProjectInterface $project_repostory): void
+    {
+        $this->project_repostory = $project_repostory;
+    }
+
     public function mount($project_id): void
     {
-        $project = Project::whereId($project_id)->first();
+        $project = $this->project_repostory->first($project_id);
         $this->project_name = $project->name;
         $this->url = $project->url;
         $this->project_id = $project->id;

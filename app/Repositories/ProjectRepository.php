@@ -19,4 +19,9 @@ class ProjectRepository implements ProjectInterface
         CheckUptime::dispatch();
         return $project;
     }
+
+    public function first(int $id): ?Project
+    {
+        return $this->project->whereId($id)->first();
+    }
 }
