@@ -12,6 +12,12 @@
         @error('url')<x-input-error class="mt-2" :messages="$message" />@enderror
     </div>
 
+    <div>
+        <x-input-label for="slack_hook" :value="__('slack Hook')" />
+        <x-text-input id="slack_hook" name="slack_hook" type="text" class="mt-1 block w-full" wire:model="slack_hook"/>
+        @error('slack_hook')<x-input-error class="mt-2" :messages="$message" />@enderror
+    </div>
+
     <div class="flex items-center gap-4">
         <x-primary-button>{{ __('Save') }}</x-primary-button>
     </div>

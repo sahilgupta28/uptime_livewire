@@ -16,7 +16,8 @@ class Project extends Model
     protected $fillable = [
         'name',
         'url',
-        'user_id'
+        'user_id',
+        'slack_hook'
     ];
 
     public function uptimeLogs(): HasMany
@@ -31,6 +32,6 @@ class Project extends Model
 
     public function routeNotificationForSlack(): string
     {
-        return env('SLACK_HOOK');
+        return $this->slack_hook;
     }
 }

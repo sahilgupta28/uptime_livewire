@@ -10,13 +10,15 @@ use Livewire\Component;
 
 class CreateProjectForm extends Component
 {
-    public string $project_name = '';
-    public string $url = '';
+    public string $project_name;
+    public string $url;
+    public string $slack_hook;
     protected ProjectInterface $project_repostory;
 
     protected array $rules = [
         'project_name' => 'required|string|min:3',
-        'url' => 'required|url'
+        'url' => 'required|url',
+        'slack_hook' => 'nullable|string|regex:~\b(https?://)hooks\.slack\.com/services/(\S+\b)/(\S+\b)/(\S+\b)~'
     ];
 
     public function boot(ProjectInterface $project_repostory): void
@@ -36,6 +38,7 @@ class CreateProjectForm extends Component
             [
                 'name' => $data['project_name'],
                 'url' => $data['url'],
+                'slack_hook' => $data['slack_hook'],
                 'user_id' => optional(auth()->user())->id
             ]
         );
