@@ -24,4 +24,13 @@ class ProjectRepository implements ProjectInterface
     {
         return $this->project->whereId($id)->first();
     }
+
+    public function update(int $id, array $inputs): int
+    {
+        $project = $this->project
+            ->whereId($id)
+            ->update($inputs);
+        CheckUptime::dispatch();
+        return $project;
+    }
 }

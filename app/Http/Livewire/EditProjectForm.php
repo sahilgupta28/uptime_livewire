@@ -42,14 +42,13 @@ class EditProjectForm extends Component
     public function upadte(): ?Redirect
     {
         $data = $this->validate();
-        Project::whereId($this->project_id)
-            ->update(
-                [
-                    'name' => $data['project_name'],
-                    'url' => $data['url']
-                ]
-            );
-        CheckUptime::dispatch();
+        $this->project_repostory->update(
+            $this->project_id,
+            [
+                'name' => $data['project_name'],
+                'url' => $data['url']
+            ]
+        );
         return $this->redirect(route('project.index'));
     }
 }

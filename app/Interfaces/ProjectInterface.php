@@ -9,4 +9,6 @@ interface ProjectInterface
     public function create(array $inputs): Project;
 
     public function first(int $id): ?Project;
+
+    public function update(int $id, array $inputs): int;
 }
