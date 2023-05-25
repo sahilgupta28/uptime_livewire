@@ -2,7 +2,9 @@
 
 namespace App\Interfaces;
 
+use App\Models\Project;
+
 interface ProjectInterface
 {
-    public function createProject(array $inputs);
+    public function create(array $inputs): Project;
 }

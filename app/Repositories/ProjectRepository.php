@@ -13,7 +13,7 @@ class ProjectRepository implements ProjectInterface
     ) {
     }
 
-    public function createProject(array $inputs): Project
+    public function create(array $inputs): Project
     {
         $project = $this->project->create($inputs);
         CheckUptime::dispatch();

@@ -32,7 +32,7 @@ class CreateProjectForm extends Component
     public function save(): ?Redirect
     {
         $data = $this->validate();
-        $this->project_repostory->createProject(
+        $this->project_repostory->create(
             [
                 'name' => $data['project_name'],
                 'url' => $data['url'],
