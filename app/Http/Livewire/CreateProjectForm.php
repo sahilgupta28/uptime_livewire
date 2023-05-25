@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Jobs\CheckUptime;
-use App\Models\Project;
+use App\Interfaces\ProjectInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
@@ -13,11 +12,17 @@ class CreateProjectForm extends Component
 {
     public string $project_name = '';
     public string $url = '';
+    protected ProjectInterface $project_repostory;
 
     protected array $rules = [
         'project_name' => 'required|string|min:3',
         'url' => 'required|url'
     ];
+
+    public function boot(ProjectInterface $project_repostory): void
+    {
+        $this->project_repostory = $project_repostory;
+    }
 
     public function render(): View
     {
@@ -27,14 +32,13 @@ class CreateProjectForm extends Component
     public function save(): ?Redirect
     {
         $data = $this->validate();
-        Project::create(
+        $this->project_repostory->createProject(
             [
                 'name' => $data['project_name'],
                 'url' => $data['url'],
                 'user_id' => optional(auth()->user())->id
             ]
         );
-        CheckUptime::dispatch();
         return $this->redirect(route('project.index'));
     }
 
