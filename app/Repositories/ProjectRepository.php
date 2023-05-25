@@ -8,10 +8,10 @@ use App\Models\Project;
 
 class ProjectRepository implements ProjectInterface
 {
-    public function __construct (
+    public function __construct(
         public Project $project = new Project()
-    )
-    {}
+    ) {
+    }
 
     public function createProject(array $inputs): Project
     {
