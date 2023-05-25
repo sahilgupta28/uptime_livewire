@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Interfaces\ProjectInterface;
-use App\Jobs\CheckUptime;
-use App\Models\Project;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
@@ -39,7 +37,7 @@ class EditProjectForm extends Component
         return view('livewire.edit-project-form');
     }
 
-    public function upadte(): ?Redirect
+    public function update(): ?Redirect
     {
         $data = $this->validate();
         $this->project_repostory->update(
